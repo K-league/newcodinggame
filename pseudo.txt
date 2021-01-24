@@ -1,0 +1,16 @@
+define question objt format
+
+store each question in an array
+    possibly use local storage 
+
+deifne function to render a question 
+    paramaters will be question objt 
+
+define function to handle an answer click event
+
+define function to handle start of game 
+    start timer
+    render first question
+    render score 
+    
+create html scaffold to hold each component
