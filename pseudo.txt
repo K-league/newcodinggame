@@ -3,8 +3,8 @@ define question objt format DONE
 store each question in an array DONE
     possibly use local storage 
 
-deifne function to render a question 
-    paramaters will be question objt 
+deifne function to render a question DONE
+    paramaters will be question objt DONE
 
 define function to handle an answer click event
 
