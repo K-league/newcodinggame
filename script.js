@@ -1,8 +1,7 @@
 var timer = 180;
-var score = 0;
+var currentScore = 0;
 var currentQuestionIndex = 0;
 
-var topScores = localStorage.topScores;
 function getTopScores() {
     var topScores = localStorage.topScores;
     if (topScores == undefined) {
@@ -10,8 +9,9 @@ function getTopScores() {
             {initials : "FOO", score : 1}
         ];
     }
-    return JSON.parse(topScores);
+    return JSON.parse(topScores); // get a string that has an object defined in it, and make it an object
 }
+
 function renderTopScores() {
     var topScores = getTopScores();
     var ul = $("<ul class='list-group'></ul>");
@@ -27,6 +27,19 @@ function renderTopScores() {
         ul.append(li);
     }
     $("#highScores").html("").append(ul);
+}
+
+function recordScore() {
+    var inputInitials = $("#initials").val();
+    var topScores = getTopScores();
+    topScores.push({initials: inputInitials, score: currentScore});
+    topScores = topScores.sort(function (item, other) {
+        return parseInt(other.score) - parseInt(item.score)        
+    });
+    topScores = topScores.slice(0, 5);
+    localStorage.topScores = JSON.stringify(topScores); //get this object and transform it into a string that looks like json
+    $("#scorePrompt").hide();
+    renderTopScores();
 }
 
 var questions = [
@@ -111,7 +124,7 @@ function answerClick(event){
     var option = $(event.target).attr("label");
     var question = questions[currentQuestionIndex];
     if (option == question.correct) {
-        score += 10
+        currentScore += 10
     } else {
         timer -= 10
     }
@@ -121,7 +134,7 @@ function answerClick(event){
         renderQuestion()
     } else {
         timer = 0;
-        $("#question").html("");
+        main();
     }
     //increment question index +1
     // check if there is another quesiton
@@ -131,7 +144,7 @@ function answerClick(event){
 
 function displayUpdate() {
     $("#timer").html(timer);
-    $("#score").html(score);
+    $("#currentScore").html(currentScore);
 }
 var intervalId = null;
 function main() {
@@ -140,9 +153,15 @@ function main() {
         displayUpdate();
     } else {
         clearInterval(intervalId);
-        $("#question").html("gameOver")
+        $("#question").html("gameOver");
+        var topScores = getTopScores()
+        var lowestScore = topScores[topScores.length -1]; // get last item in scores
+        if(currentScore > lowestScore.score || topScores.length < 5) {
+            $("#scorePrompt").show();
+        }
     }
 };
+$("#scorePrompt").hide();
 displayUpdate();
 renderQuestion();
 renderTopScores();

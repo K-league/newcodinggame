@@ -12,12 +12,18 @@
     <h1>Get Coding Game</h1>
     <hr/>
     <div class="container">
+        <div class="row hidden" id="scorePrompt">
+            <div class="col-12">
+                <input id="initials" type="text"/>
+                <button onclick="recordScore()">Record</button>
+            </div>
+        </div>
         <div class="row">
             <div id="game" class="col-8">
                 <div id="display-board">
                     <p class="lead">
                         Timer: <span id="timer">0</span><br>
-                        Score: <span id="score">0</span>
+                        Score: <span id="currentScore">0</span>
                     </p>
                 </div>
                 <div id="question">
