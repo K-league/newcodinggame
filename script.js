@@ -1,3 +1,7 @@
+var timer = 180;
+var score = 0;
+var currentQuestionIndex = 0;
+//managed by 3rd function
 var questions = [
     {
         question: "what is HTML?",
@@ -22,15 +26,57 @@ var questions = [
     }
 ]
 
-function renderQuestion(question){
+function renderQuestion(){
+    var question = questions[currentQuestionIndex];
     //question wiil be text newline, ul where li is option, each li is clickable
     var q = $("<p></p>").html(question.question);
     var ul = $("<ul></ul>");
     for (let index = 0; index < question.options.length; index++) {
         const option = question.options[index];
         var li = $("<li></li>").attr("label", option.label).attr("class", "option").html(option.value);
-        ul.append(li)
+        ul.append(li);
     }
-    $("#question").html("").append(q).append(ul)
+    $("#question").html("").append(q).append(ul);
+    $('li').on("click",answerClick);
 };
-renderQuestion(questions[1])
+
+function answerClick(event){
+    event.preventDefault();
+    var option = $(event.target).attr("label");
+    var question = questions[currentQuestionIndex];
+    if (option == question.correct) {
+        score += 10
+    } else {
+        timer -= 10
+    }
+    displayUpdate();
+    currentQuestionIndex += 1;
+    if (questions[currentQuestionIndex] != undefined) {
+        renderQuestion()
+    } else {
+        timer = 0;
+        $("#question").html("");
+    }
+    //increment question index +1
+    // check if there is another quesiton
+    //if there is another question, render question
+    //ELSE end game
+};
+
+function displayUpdate() {
+    $("#timer").html(timer);
+    $("#score").html(score);
+}
+var intervalId = null;
+function main() {
+    if (timer > 0) {
+        timer -= 1;
+        displayUpdate();
+    } else {
+        clearInterval(intervalId);
+        $("#question").html("gameOver")
+    }
+};
+displayUpdate();
+renderQuestion();
+intervalId = setInterval(main, 1000);

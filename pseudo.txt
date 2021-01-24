@@ -8,9 +8,10 @@ deifne function to render a question DONE
 
 define function to handle an answer click event
 
-define function to handle start of game 
-    start timer
-    render first question
-    render score 
+define function to handle start of game DONE
+    function that handles the timer DONE
+    start timer DONE
+    render first question DONE
+    render score DONE
 
 create html scaffold to hold each component DONE
