@@ -15,3 +15,17 @@ define function to handle start of game DONE
     render score DONE
 
 create html scaffold to hold each component DONE
+
+define high score object format
+define high score display in html (scaffold as before)
+probably add some html & css to separate the question div/timer/score display from high score board
+
+define function for game over handling:
+    after gameOver look up local storage for lowest score
+    IF score is greater than lowest score
+        create input for initials
+        insert score to local storage
+        drop lowest score if more than five records
+    ELSE
+        do nothing
+    change display to show top five 

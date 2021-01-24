@@ -1,7 +1,18 @@
 var timer = 180;
 var score = 0;
 var currentQuestionIndex = 0;
-//managed by 3rd function
+
+var topScores = localStorage.topScores;
+function getTopScores() {
+    var topScores = localStorage.topScores;
+    if (topScores.length == undefined) {
+        return [
+            {initials : "FOO", score : 1}
+        ];
+    }
+    return JSON.parse(topScores);
+}
+
 var questions = [
     {
         question: "what is HTML?",
@@ -10,7 +21,46 @@ var questions = [
             {label: "B", value: "metal"},
             {label: "C", value: "tool"},
             {label: "D", value: "loop"},
-
+        ],
+        correct: "C"
+    },
+    {
+        question: "Correct is B?",
+        options: [
+            {label: "A", value: "A"},
+            {label: "B", value: "B"},
+            {label: "C", value: "C"},
+            {label: "D", value: "D"},
+        ],
+        correct: "B"
+    },
+    {
+        question: "Correct is B?",
+        options: [
+            {label: "A", value: "A"},
+            {label: "B", value: "B"},
+            {label: "C", value: "C"},
+            {label: "D", value: "D"},
+        ],
+        correct: "C"
+    },
+    {
+        question: "Correct is D?",
+        options: [
+            {label: "A", value: "A"},
+            {label: "B", value: "B"},
+            {label: "C", value: "C"},
+            {label: "D", value: "D"},
+        ],
+        correct: "D"
+    },
+    {
+        question: "Random words?",
+        options: [
+            {label: "A", value: "house"},
+            {label: "B", value: "metal"},
+            {label: "C", value: "tool"},
+            {label: "D", value: "loop"},
         ],
         correct: "C"
     },
@@ -29,11 +79,11 @@ var questions = [
 function renderQuestion(){
     var question = questions[currentQuestionIndex];
     //question wiil be text newline, ul where li is option, each li is clickable
-    var q = $("<p></p>").html(question.question);
-    var ul = $("<ul></ul>");
+    var q = $("<p class='lead'></p>").html(question.question);
+    var ul = $('<ul class="list-group-flush"></ul>');
     for (let index = 0; index < question.options.length; index++) {
         const option = question.options[index];
-        var li = $("<li></li>").attr("label", option.label).attr("class", "option").html(option.value);
+        var li = $('<li></li>').attr("label", option.label).attr("class", "option list-group-item").html(option.value);
         ul.append(li);
     }
     $("#question").html("").append(q).append(ul);
