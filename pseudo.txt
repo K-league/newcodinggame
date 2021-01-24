@@ -16,9 +16,9 @@ define function to handle start of game DONE
 
 create html scaffold to hold each component DONE
 
-define high score object format
-define high score display in html (scaffold as before)
-probably add some html & css to separate the question div/timer/score display from high score board
+define high score object format DONE
+define high score display in html (scaffold as before) DONE
+probably add some html & css to separate the question div/timer/score display from high score board DONE
 
 define function for game over handling:
     after gameOver look up local storage for lowest score

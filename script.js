@@ -5,12 +5,28 @@ var currentQuestionIndex = 0;
 var topScores = localStorage.topScores;
 function getTopScores() {
     var topScores = localStorage.topScores;
-    if (topScores.length == undefined) {
+    if (topScores == undefined) {
         return [
             {initials : "FOO", score : 1}
         ];
     }
     return JSON.parse(topScores);
+}
+function renderTopScores() {
+    var topScores = getTopScores();
+    var ul = $("<ul class='list-group'></ul>");
+//     <li class="list-group-item d-flex justify-content-between align-items-center">
+//     Cras justo odio
+//     <span class="badge badge-primary badge-pill">14</span>
+//   </li>
+    for (let index = 0; index < topScores.length; index++) {
+        const currentScore = topScores[index];
+        var li = $('<li class="list-group-item d-flex justify-content-between align-items-center"></li>').html(currentScore.initials);
+        var badge = $('<span class="badge badge-dark"></span>').html(currentScore.score);
+        li.append(badge);
+        ul.append(li);
+    }
+    $("#highScores").html("").append(ul);
 }
 
 var questions = [
@@ -129,4 +145,5 @@ function main() {
 };
 displayUpdate();
 renderQuestion();
+renderTopScores();
 intervalId = setInterval(main, 1000);
