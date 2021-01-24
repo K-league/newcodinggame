@@ -17,4 +17,6 @@ var questions = [
     }
 ]
 
-
+function renderQuestion(question){
+    
+};

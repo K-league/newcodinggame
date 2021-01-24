@@ -13,4 +13,4 @@ define function to handle start of game
     render first question
     render score 
 
-create html scaffold to hold each component
+create html scaffold to hold each component DONE
