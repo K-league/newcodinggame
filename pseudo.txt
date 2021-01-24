@@ -1,6 +1,6 @@
-define question objt format
+define question objt format DONE
 
-store each question in an array
+store each question in an array DONE
     possibly use local storage 
 
 deifne function to render a question 
@@ -12,5 +12,5 @@ define function to handle start of game
     start timer
     render first question
     render score 
-    
+
 create html scaffold to hold each component
